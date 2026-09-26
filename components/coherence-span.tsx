@@ -36,8 +36,8 @@ export default function CoherenceSpan({ error, isSelected, isFlashing, onSelect,
       onClick={onSelect}
       onKeyDown={(e) => e.key === "Enter" && onSelect()}
       title={error.explanation}
-      className={`cursor-pointer underline decoration-coherence decoration-wavy decoration-2 underline-offset-4 ${
-        isSelected ? "bg-coherence/10" : ""
+      className={`cursor-pointer rounded underline decoration-coherence decoration-wavy decoration-2 underline-offset-4 ${
+        isSelected ? "bg-coherence/25 ring-2 ring-coherence/70 font-semibold" : ""
       } ${flashClass}`}
     >
       {error.original}

@@ -27,10 +27,14 @@ export default function FeedbackCard({ error, isSelected, onSelect, onAccept, on
         if (e.key === "Enter") onAccept();
         if (e.key === "Escape") onReject();
       }}
-      className={`mb-3 rounded-lg border border-line p-4 transition-opacity ${isSelected ? "bg-gray-50" : ""} ${
-        isResolved ? "opacity-60" : ""
-      }`}
-      style={isSelected ? { borderLeft: `4px solid ${meta.color}` } : undefined}
+      className={`mb-3 rounded-lg border p-4 transition-all ${
+        isSelected ? "border-transparent shadow-md ring-2" : "border-line"
+      } ${isResolved ? "opacity-60" : ""}`}
+      style={
+        isSelected
+          ? { borderLeft: `4px solid ${meta.color}`, backgroundColor: `${meta.color}1a`, boxShadow: `0 0 0 2px ${meta.color}55` }
+          : undefined
+      }
     >
       <div
         className="mb-1.5 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide"

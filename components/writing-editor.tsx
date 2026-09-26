@@ -76,6 +76,7 @@ export default function WritingEditor({
             <InlineCorrection
               key={segment.error.id}
               error={segment.error}
+              isSelected={selectedErrorId === segment.error.id}
               isFlashing={flashId === segment.error.id}
               onSelect={() => onSelect(segment.error.id)}
               elementRef={(el) => {
