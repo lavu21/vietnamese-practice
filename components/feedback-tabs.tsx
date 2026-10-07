@@ -21,12 +21,12 @@ export default function FeedbackTabs({ errors, activeTab, onChangeTab }: Feedbac
             key={category}
             type="button"
             onClick={() => onChangeTab(category)}
-            className={`flex min-w-0 flex-1 items-center justify-center gap-1 rounded-lg border px-1 py-2 text-[11px] font-bold ${
+            className={`flex min-w-0 flex-1 items-center justify-center gap-1 rounded-lg border px-1 py-2 text-center text-[11px] leading-tight font-bold ${
               isActive ? "border-ink text-ink" : "border-transparent text-ink-muted"
             }`}
           >
             <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: meta.color }} />
-            <span className="min-w-0 truncate">
+            <span className="min-w-0">
               {meta.label}
               {pending > 0 ? ` (${pending})` : ""}
             </span>

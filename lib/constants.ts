@@ -1,7 +1,5 @@
 import { Audience, ErrorCategory, Tone } from "./types";
 
-export const MIN_WORD_COUNT = 20;
-
 export const SAMPLE_TEXT =
   "Hôm nay tôi đi học sớm vì tôi thứt dậy sớm. Tôi nghỉ rằng nếu đi sớm thì sẽ không bị kẹt xe, nhưng thật ra hôm nay đường lại đông hơn mọi khi. Trên đường đi, tôi gặp bạn be cũ và chúng tôi nói chuyện rất vui.";
 
@@ -42,8 +40,8 @@ export const CATEGORY_META: Record<ErrorCategory, { label: string; color: string
 };
 
 /**
- * Chưa tích hợp AI thật (xem lib/mock-ai.ts) nên dùng 5 bài mẫu cố định với số lỗi
- * khác nhau để demo/test các trạng thái của feedback panel (rỗng, ít, vừa, lệch tab, dài).
+ * 5 bài mẫu cố định với số lỗi khác nhau để demo/test các trạng thái của feedback panel
+ * (rỗng, ít, vừa, lệch tab, dài).
  */
 export interface MockSample {
   id: string;
@@ -84,3 +82,11 @@ export const MOCK_SAMPLES: MockSample[] = [
     text: SCROLL_TEST_TEXT,
   },
 ];
+
+/** Chưa có backend auth thật — dùng tài khoản giả cố định để demo đăng nhập. */
+export interface MockUser {
+  username: string;
+  password: string;
+}
+
+export const MOCK_USERS: MockUser[] = [{ username: "demo", password: "demo123" }];

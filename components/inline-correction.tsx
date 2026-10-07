@@ -17,14 +17,14 @@ export default function InlineCorrection({ error, isSelected, isFlashing, onSele
   if (error.status === "accepted") {
     return (
       <span ref={elementRef} className={`font-semibold text-ink ${flashClass}`}>
-        {error.suggestion}{" "}
+        {error.suggestion}
       </span>
     );
   }
   if (error.status === "rejected") {
     return (
       <span ref={elementRef} className={flashClass}>
-        {error.original}{" "}
+        {error.original}
       </span>
     );
   }
@@ -44,11 +44,11 @@ export default function InlineCorrection({ error, isSelected, isFlashing, onSele
       tabIndex={0}
       onClick={onSelect}
       onKeyDown={(e) => e.key === "Enter" && onSelect()}
-      title={`${error.explanation} — bấm để xem chi tiết & xử lý ở panel bên phải`}
+      title={`${error.explanation} — bấm để xem chi tiết và xử lý`}
       className={`cursor-pointer rounded px-0.5 ${selectedClass} ${flashClass}`}
     >
       <span className="mr-1 text-ink-muted line-through">{error.original}</span>
-      <span className={`mr-1 rounded px-1.5 py-0.5 font-semibold ${highlightClass}`}>{error.suggestion}</span>{" "}
+      <span className={`mr-1 rounded px-1.5 py-0.5 font-semibold ${highlightClass}`}>{error.suggestion}</span>
     </span>
   );
 }

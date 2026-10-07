@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import FeedbackPanel from "@/components/feedback-panel";
 import TopBar from "@/components/top-bar";
 import WritingEditor from "@/components/writing-editor";
-import { analyzeText } from "@/lib/mock-ai";
+import { analyzeText } from "@/lib/analysis";
 import { CATEGORY_ORDER } from "@/lib/constants";
 import { AnalysisStatus, ErrorCategory, WritingError } from "@/lib/types";
 import { useWriting } from "@/lib/writing-context";
@@ -78,7 +78,7 @@ export default function GradingPage() {
     <main className="min-h-full bg-page pb-24 md:pb-6">
       <TopBar status={status} totalCount={errors.length} resolvedCount={resolvedCount} />
 
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 p-6 md:grid-cols-[64%_36%]">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-4 p-3 sm:p-6 md:grid-cols-[64%_36%] md:gap-6">
         <WritingEditor
           text={submittedText}
           errors={errors}
@@ -106,7 +106,8 @@ export default function GradingPage() {
         <button
           type="button"
           onClick={() => setMobilePanelOpen(true)}
-          className="fixed right-6 bottom-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-lg font-bold text-white shadow-lg md:hidden"
+          aria-label="Xem gợi ý"
+          className="fixed right-4 bottom-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-lg font-bold text-white shadow-lg sm:right-6 sm:bottom-6 md:hidden"
         >
           {pendingCount > 0 ? pendingCount : "🎉"}
         </button>

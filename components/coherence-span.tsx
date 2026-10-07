@@ -16,14 +16,14 @@ export default function CoherenceSpan({ error, isSelected, isFlashing, onSelect,
   if (error.status === "accepted") {
     return (
       <span ref={elementRef} className={flashClass}>
-        {error.suggestion}{" "}
+        {error.suggestion}
       </span>
     );
   }
   if (error.status === "rejected") {
     return (
       <span ref={elementRef} className={flashClass}>
-        {error.original}{" "}
+        {error.original}
       </span>
     );
   }

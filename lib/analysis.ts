@@ -1,9 +1,8 @@
 import { WritingError } from "./types";
 
 /**
- * This module stands in for a real AI grading service (see project báo cáo, mục 7.3 —
- * "hướng phát triển: tích hợp AI thật"). It uses a small dictionary + heuristics so the
- * front-end flow (loading / accept / reject / retry) can be demoed end-to-end without a backend.
+ * Phân tích bài viết bằng một từ điển nhỏ cùng các quy tắc đơn giản để luồng giao diện
+ * (đang tải / chấp nhận / từ chối / thử lại) chạy đầy đủ mà không cần máy chủ.
  */
 
 interface DictEntry {
@@ -132,8 +131,9 @@ export async function analyzeText(text: string): Promise<WritingError[]> {
     while (searchFrom <= text.length) {
       const idx = text.indexOf(entry.phrase, searchFrom);
       if (idx === -1) break;
-      const range = { start: idx, end: idx + entry.phrase.length };
-      searchFrom = range.end;
+      searchFrom = idx + entry.phrase.length;
+      // Khoảng trắng cuối chỉ dùng để khớp từ, không nằm trong vùng lỗi.
+      const range = { start: idx, end: idx + entry.phrase.trimEnd().length };
       if (claimed.some((c) => overlaps(c, range))) continue;
       claimed.push(range);
       errors.push({
@@ -154,7 +154,10 @@ export async function analyzeText(text: string): Promise<WritingError[]> {
   let match: RegExpExecArray | null;
   while ((match = sentenceRegex.exec(text)) !== null) {
     if (!match[0].trim()) continue;
-    candidates.push({ start: match.index, end: match.index + match[0].length, sentence: match[0] });
+    const leading = match[0].length - match[0].trimStart().length;
+    const sentence = match[0].trim();
+    const start = match.index + leading;
+    candidates.push({ start, end: start + sentence.length, sentence });
   }
 
   let coherencePicked = 0;
