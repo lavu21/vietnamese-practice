@@ -35,7 +35,7 @@ export default function WritingEditor({
   }, [selectedErrorId]);
 
   return (
-    <div className="relative rounded-xl border border-line bg-surface p-8">
+    <div className="relative rounded-xl border border-line bg-surface p-4 sm:p-8">
       {isBusy && (
         <div className="absolute inset-0 z-10 flex items-start justify-center rounded-xl bg-surface/60 pt-16 backdrop-blur-[1px]">
           <div className="flex items-center gap-2 text-sm font-medium text-neutral">
@@ -46,7 +46,7 @@ export default function WritingEditor({
       )}
 
       {status === "success" && (
-        <div className="mb-4 flex items-center gap-1.5 text-[13px] text-neutral">
+        <div className="mb-4 flex flex-wrap items-center gap-1.5 text-[13px] text-neutral">
           {errors.length === 0 ? (
             <span>🎉 Không tìm thấy lỗi nào</span>
           ) : (

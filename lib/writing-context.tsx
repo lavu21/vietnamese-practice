@@ -1,7 +1,9 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import { useAuth } from "./auth-context";
 import { SAMPLE_TEXT } from "./constants";
+import { addHistoryEntry, HistoryEntry } from "./history";
 import { Audience, Tone } from "./types";
 
 interface WritingContextValue {
@@ -13,12 +15,14 @@ interface WritingContextValue {
   setAudience: (value: Audience) => void;
   submittedText: string | null;
   submit: () => void;
+  openEntry: (entry: HistoryEntry) => void;
   reset: () => void;
 }
 
 const WritingContext = createContext<WritingContextValue | null>(null);
 
 export function WritingProvider({ children }: { children: ReactNode }) {
+  const { username } = useAuth();
   const [draftText, setDraftText] = useState(SAMPLE_TEXT);
   const [tone, setTone] = useState<Tone | null>("casual");
   const [audience, setAudience] = useState<Audience | null>("child");
@@ -33,7 +37,17 @@ export function WritingProvider({ children }: { children: ReactNode }) {
       audience,
       setAudience,
       submittedText,
-      submit: () => setSubmittedText(draftText.trim()),
+      submit: () => {
+        const text = draftText.trim();
+        setSubmittedText(text);
+        if (username) addHistoryEntry(username, { text, tone, audience });
+      },
+      openEntry: (entry) => {
+        setDraftText(entry.text);
+        setTone(entry.tone);
+        setAudience(entry.audience);
+        setSubmittedText(entry.text);
+      },
       reset: () => {
         setSubmittedText(null);
         setDraftText(SAMPLE_TEXT);
@@ -41,7 +55,7 @@ export function WritingProvider({ children }: { children: ReactNode }) {
         setAudience("child");
       },
     }),
-    [draftText, tone, audience, submittedText],
+    [draftText, tone, audience, submittedText, username],
   );
 
   return <WritingContext.Provider value={value}>{children}</WritingContext.Provider>;

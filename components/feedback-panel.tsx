@@ -34,8 +34,6 @@ export default function FeedbackPanel({
   onCloseMobile,
 }: FeedbackPanelProps) {
   const [noteModalOpen, setNoteModalOpen] = useState(false);
-  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
-  const [feedbackSent, setFeedbackSent] = useState<"up" | "down" | null>(null);
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
@@ -63,14 +61,7 @@ export default function FeedbackPanel({
         <button type="button" onClick={() => setNoteModalOpen(true)} className="font-medium text-primary hover:underline">
           ⚠️ Lưu ý chấm điểm
         </button>
-        <button
-          type="button"
-          onClick={() => setFeedbackModalOpen(true)}
-          className="font-medium text-primary hover:underline"
-        >
-          👍👎 Góp ý để AI thông minh hơn
-        </button>
-        <button type="button" onClick={onCloseMobile} className="shrink-0 text-ink-muted md:hidden">
+        <button type="button" onClick={onCloseMobile} className="shrink-0 px-1 py-1 text-ink-muted md:hidden">
           Đóng ✕
         </button>
       </div>
@@ -121,32 +112,9 @@ export default function FeedbackPanel({
 
       <InfoModal open={noteModalOpen} onClose={() => setNoteModalOpen(false)} title="Lưu ý chấm điểm">
         <p>
-          Gợi ý từ AI có thể không chính xác 100%. Hãy tự đọc và suy nghĩ trước khi bấm Accept — AI chỉ hỗ trợ,
+          Các gợi ý có thể không chính xác 100%. Hãy tự đọc và suy nghĩ trước khi bấm Chấp nhận — gợi ý chỉ hỗ trợ,
           không thay bạn viết.
         </p>
-      </InfoModal>
-
-      <InfoModal
-        open={feedbackModalOpen}
-        onClose={() => {
-          setFeedbackModalOpen(false);
-          setFeedbackSent(null);
-        }}
-        title="Góp ý để AI thông minh hơn"
-      >
-        {feedbackSent ? (
-          <p className="text-vocab">Cảm ơn bạn đã góp ý! Phản hồi giúp AI cải thiện tốt hơn.</p>
-        ) : (
-          <div className="flex items-center gap-3">
-            <p className="text-sm text-ink">Bạn thấy các gợi ý ở bài này thế nào?</p>
-            <button type="button" onClick={() => setFeedbackSent("up")} className="text-xl" aria-label="Tốt">
-              👍
-            </button>
-            <button type="button" onClick={() => setFeedbackSent("down")} className="text-xl" aria-label="Chưa tốt">
-              👎
-            </button>
-          </div>
-        )}
       </InfoModal>
     </div>
   );

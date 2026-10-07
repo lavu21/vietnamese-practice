@@ -59,16 +59,16 @@ export default function FeedbackCard({ error, isSelected, onSelect, onAccept, on
       )}
 
       {error.status === "pending" ? (
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               onAccept();
             }}
-            className="rounded-md bg-primary px-3.5 py-2 text-[13px] font-semibold text-white hover:bg-primary-hover"
+            className="rounded-md bg-primary px-4 py-2.5 text-[13px] font-semibold text-white hover:bg-primary-hover md:px-3.5 md:py-2"
           >
-            {isCoherence ? "Dùng câu này" : "Accept"}
+            {isCoherence ? "Dùng câu này" : "Chấp nhận"}
           </button>
           <button
             type="button"
@@ -76,9 +76,9 @@ export default function FeedbackCard({ error, isSelected, onSelect, onAccept, on
               e.stopPropagation();
               onReject();
             }}
-            className="rounded-md border border-line bg-white px-3.5 py-2 text-[13px] font-semibold text-neutral hover:bg-gray-50"
+            className="rounded-md border border-line bg-white px-4 py-2.5 text-[13px] font-semibold text-neutral hover:bg-gray-50 md:px-3.5 md:py-2"
           >
-            {isCoherence ? "Bỏ qua" : "Reject"}
+            {isCoherence ? "Bỏ qua" : "Từ chối"}
           </button>
         </div>
       ) : (
